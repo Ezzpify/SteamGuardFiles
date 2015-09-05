@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Win32;
 using System.IO;
 using System.IO.Compression;
+using Microsoft.Win32;
 
 namespace SteamGuardFiles
 {
@@ -70,9 +70,9 @@ namespace SteamGuardFiles
         static void Main(string[] args)
         {
             /*Path variables*/
-            string steamFolder = GetSteamFolder();
+            string steamFolder  = GetSteamFolder();
             string newDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SteamFiles");
-            string newZip = newDirectory + ".zip";
+            string newZip       = newDirectory + ".zip";
 
             /*Ensure that we found the steam folder*/
             if(string.IsNullOrEmpty(steamFolder))
@@ -94,12 +94,12 @@ namespace SteamGuardFiles
             foreach(string file in FilesToGet)
             {
                 /*Load up new path and copy file*/
-                string newFile = Path.Combine(newDirectory, Path.GetFileName(file));
+                string newFile  = Path.Combine(newDirectory, Path.GetFileName(file));
                 File.Copy(file, newFile);
 
                 /*Make sure file is not hidden*/
-                FileInfo FI = new FileInfo(newFile);
-                FI.Attributes = FileAttributes.Normal;
+                FileInfo FI     = new FileInfo(newFile);
+                FI.Attributes   = FileAttributes.Normal;
             }
 
             /*Delete an already existing Zip folder*/

@@ -1,6 +1,8 @@
 # SteamGuardFiles
 Gets all the required SteamGuard files for Steam's account protection system
 
+![hf1](https://cloud.githubusercontent.com/assets/9034691/9700192/db813d3a-53fa-11e5-8592-2ac31739b4af.gif)
+
 In order to log into a Steam account from a new device without having to wait for 7 days in order to preform basic actions such as trading, 
 just copy the SteamGuard files from a computer which has already waited 7 days.
 

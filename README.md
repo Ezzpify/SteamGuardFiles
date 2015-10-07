@@ -1,5 +1,5 @@
 # SteamGuardFiles
-Gets all the required SteamGuard files for Steam's account protection system
+Gets all the required SteamGuard files for Steam's account protection system. Doesn't matter where steam is installed, because this will find the files automatically! Magic.
 
 ![hf1](https://cloud.githubusercontent.com/assets/9034691/9700192/db813d3a-53fa-11e5-8592-2ac31739b4af.gif)
 

@@ -18,7 +18,7 @@ namespace SteamGuardFiles
         /// <summary>
         /// Get Steam folder from registry
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns string of Steam folder location</returns>
         private static string GetSteamFolder()
         {
             /*Get registry key*/
@@ -66,12 +66,11 @@ namespace SteamGuardFiles
         /// <summary>
         /// Main function
         /// </summary>
-        /// <param name="args"></param>
         static void Main(string[] args)
         {
             /*Path variables*/
             string steamFolder  = GetSteamFolder();
-            string newDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SteamFiles");
+            string newDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Steam");
             string newZip       = newDirectory + ".zip";
 
             /*Ensure that we found the steam folder*/
@@ -83,23 +82,28 @@ namespace SteamGuardFiles
                 return;
             }
 
-            /*Create folder to store items*/
+            /*Create folders to store items*/
             Directory.CreateDirectory(newDirectory);
-            
+            Directory.CreateDirectory(Path.Combine(newDirectory, "Config"));
+
             /*Get all the files from Base and Config folder*/
             AddFiles(new DirectoryInfo(steamFolder), new string[] { "ssf" });
-            AddFiles(new DirectoryInfo(string.Format("{0}\\Config", steamFolder)), new string[] { "config", "SteamAppData", "loginusers" });
+            AddFiles(new DirectoryInfo(Path.Combine(steamFolder, "Config")), new string[] { "config", "SteamAppData", "loginusers" });
 
             /*Copy all files to our created directory*/
             foreach(string file in FilesToGet)
             {
+                /*Local directory string that we can edit without affecting global*/
+                string dir = newDirectory.Replace(steamFolder, "");
+
                 /*Load up new path and copy file*/
-                string newFile  = Path.Combine(newDirectory, Path.GetFileName(file));
+                if (Path.GetDirectoryName(file).Contains("Config")) { dir = Path.Combine(dir, "Config"); }
+                string newFile = Path.Combine(dir, Path.GetFileName(file));
                 File.Copy(file, newFile);
 
                 /*Make sure file is not hidden*/
-                FileInfo FI     = new FileInfo(newFile);
-                FI.Attributes   = FileAttributes.Normal;
+                FileInfo FI = new FileInfo(newFile);
+                FI.Attributes = FileAttributes.Normal;
             }
 
             /*Delete an already existing Zip folder*/
